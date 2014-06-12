@@ -1,0 +1,18 @@
+{
+    "name": "rollen/biter",
+    "description": "Biter",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "rollen",
+            "email": "rafal.wartalski@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+
+    },
+    "autoload": {
+        "psr-0": { "Rollen\\Biter": "biter/src/" }
+    }
+}
