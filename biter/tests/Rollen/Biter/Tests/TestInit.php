@@ -10,4 +10,4 @@ $loader->add('Rollen\\Biter\\Tests\\', __DIR__);
 
 set_include_path(
         get_include_path() . PATH_SEPARATOR . 
-        realpath(__DIR__ . '../../../files'));
+        realpath(__DIR__ . '/../../../files'));
