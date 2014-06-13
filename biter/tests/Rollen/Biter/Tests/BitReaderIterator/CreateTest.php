@@ -47,7 +47,7 @@ class CreateTest extends \PHPUnit_Framework_TestCase
 
     public function createUnreadableStream()
     {
-        $f = fopen('empty.test', "w", true);
+        $f = fopen(__DIR__ . '/../files/empty.file', "w", true);
         
         return $f;
     }
