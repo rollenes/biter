@@ -1,8 +1,8 @@
 <?php
 
-namespace Rollen\Biter\Tests\BitReaderIterator;
+namespace Rollen\Biter\Tests\BitSequenceIterator;
 
-use Rollen\Biter\BitReaderIterator;
+use Rollen\Biter\BitSequenceIterator;
 
 class ItarateTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class ItarateTest extends \PHPUnit_Framework_TestCase
      */
     public function iterate($string, $sequenceLength, $expectedArray)
     {
-        $iterator = new BitReaderIterator($this->createResourceFromString($string), $sequenceLength);
+        $iterator = new BitSequenceIterator($this->createResourceFromString($string), $sequenceLength);
         
         $resultArray = $this->getBitSequencesAsArray($iterator);
         
@@ -38,7 +38,7 @@ class ItarateTest extends \PHPUnit_Framework_TestCase
         return $resource;
     }
     
-    private function getBitSequencesAsArray(\Rollen\Biter\BitReaderIterator $bitReaderIterator)
+    private function getBitSequencesAsArray(\Rollen\Biter\BitSequenceIterator $bitReaderIterator)
     {
         $result = [];
         

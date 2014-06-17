@@ -2,7 +2,7 @@
 
 namespace Rollen\Biter;
 
-class BitReaderIterator implements \Iterator {
+class BitSequenceIterator implements \Iterator {
 
     private $sequenceLength;
 

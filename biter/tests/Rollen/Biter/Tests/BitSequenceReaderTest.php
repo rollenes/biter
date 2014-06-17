@@ -2,15 +2,15 @@
 
 namespace Rollen\Biter\Tests;
 
-use Rollen\Biter\BitReader;
+use Rollen\Biter\BitSequenceReader;
 
-class BitReaderTest extends \PHPUnit_Framework_TestCase
+class BitSequenceReaderTest extends \PHPUnit_Framework_TestCase
 {
     private $bitReader;
     
     protected function setUp() 
     {
-        $this->bitReader = new BitReader();
+        $this->bitReader = new BitSequenceReader();
     }
 
     /**
@@ -37,13 +37,13 @@ class BitReaderTest extends \PHPUnit_Framework_TestCase
     
     private function assertInstanceOfBirReaderIterator($instance) 
     {
-        $this->assertInstanceOf('Rollen\Biter\BitReaderIterator', $instance);
+        $this->assertInstanceOf('Rollen\Biter\BitSequenceIterator', $instance);
     }
 
     /**
      * @test
      * 
-     * @expectedException Rollen\Biter\BitReaderException
+     * @expectedException Rollen\Biter\BitSequenceReaderException
      */
     public function readUnsuported()
     {

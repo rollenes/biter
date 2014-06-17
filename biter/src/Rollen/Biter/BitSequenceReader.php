@@ -2,7 +2,7 @@
 
 namespace Rollen\Biter;
 
-class BitReader 
+class BitSequenceReader 
 {
 
     public function read($input, $bitsPerItem = 8)
@@ -10,9 +10,9 @@ class BitReader
         try {
             $resource = $this->createResourceFromInput($input);
 
-            return new BitReaderIterator($resource, $bitsPerItem);
+            return new BitSequenceIterator($resource, $bitsPerItem);
         } catch (\InvalidArgumentException $e) {
-            throw new BitReaderException('Reading from input is imposible', null, $e);
+            throw new BitSequenceReaderException('Reading from input is imposible', null, $e);
         }
     }
 
