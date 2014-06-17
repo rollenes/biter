@@ -2,22 +2,30 @@
 
 namespace Rollen\Biter\Tests\BitReaderIterator;
 
+use Rollen\Biter\BitReaderIterator;
+
 class ItarateTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
+     * @dataProvider iterateDataProvider
      */
-    public function iterateEmpty()
+    public function iterate($string, $sequenceLength, $expectedArray)
     {
-        $resource = $this->createResourceFromString('');
+        $iterator = new BitReaderIterator($this->createResourceFromString($string));
         
-        $result = $this->getBitSequencesAsArray(new \Rollen\Biter\BitReaderIterator($resource));
-
-        $this->assertEmpty($result);
+        $resultArray = $this->getBitSequencesAsArray($iterator);
+        
+        $this->assertEquals($expectedArray, $resultArray);
     }
-
     
-    
+    public function iterateDataProvider() 
+    {
+        return[
+            ['', 1, []],
+            ['', 3, []],
+        ];
+    }
     
     private function createResourceFromString($string)
     {
