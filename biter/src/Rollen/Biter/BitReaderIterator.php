@@ -4,16 +4,27 @@ namespace Rollen\Biter;
 
 class BitReaderIterator implements \Iterator {
 
-    public function __construct($input) {
-        if (!$this->isStreamResource($input)) {
+    private $sequenceLength;
+
+    public function __construct($resource, $sequenceLength) 
+    {
+        $this->checkResource($resource);
+        
+        $this->checkSequenceLength($sequenceLength);
+        $this->sequenceLength = $sequenceLength;
+    }
+
+    private function checkResource($resource)
+    {
+        if (!$this->isStreamResource($resource)) {
             throw new \InvalidArgumentException('Invalid input. Stream expected.');
         }
 
-        if (!$this->isSreamReadable($input)) {
+        if (!$this->isSreamReadable($resource)) {
             throw new \InvalidArgumentException('Stream is not readable');
         }
     }
-
+    
     private function isStreamResource($input) 
     {
         return (is_resource($input) and get_resource_type($input) == 'stream');
@@ -26,7 +37,19 @@ class BitReaderIterator implements \Iterator {
         return (preg_match('/[r\+]/', $mode));
     }
 
-    public function current() {
+    private function checkSequenceLength($sequenceLength)
+    {
+        if (!$this->isSequenceLengthValid($sequenceLength)) {
+            throw new \InvalidArgumentException('Invalid sequence length');
+        }
+    }
+    
+    private function isSequenceLengthValid($sequenceLength)
+    {
+        return is_int($sequenceLength) and $sequenceLength > 0;
+    }
+
+        public function current() {
         
     }
 
@@ -44,6 +67,11 @@ class BitReaderIterator implements \Iterator {
 
     public function valid() {
         
+    }
+
+    public function getSequenceLength() 
+    {
+        return $this->sequenceLength;
     }
 
 }

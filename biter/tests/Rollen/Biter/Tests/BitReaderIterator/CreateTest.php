@@ -2,20 +2,33 @@
 
 namespace Rollen\Biter\Tests\BitReaderIterator;
 
+use Rollen\Biter\BitReaderIterator;
+
 class CreateTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
      */
-    public function createWithValidResource()
+    public function createValid()
     {
         $f = fopen('php://memory', "r");
         
-        try {
-            new \Rollen\Biter\BitReaderIterator($f);
-        } catch (\Exception $e) {
-            $this->fail($e->getMessage());
-        }
+        $sequenceLength = 4;
+        
+        $iterator = new BitReaderIterator($f, $sequenceLength);
+        
+        $this->assertEquals($sequenceLength, $iterator->getSequenceLength());
+    }
+    
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function createWithInvalidSequenceLength()
+    {
+        $f = fopen('php://memory', "r");
+        
+        new BitReaderIterator($f, 0);
     }
     
     /**
@@ -25,7 +38,7 @@ class CreateTest extends \PHPUnit_Framework_TestCase
      */
     public function createWithInvalidResource($invalidResource)
     {
-        new \Rollen\Biter\BitReaderIterator($invalidResource);
+        new BitReaderIterator($invalidResource, 4);
     }
     
     public function invalidResourceDataProvider() 

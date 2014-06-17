@@ -12,7 +12,7 @@ class ItarateTest extends \PHPUnit_Framework_TestCase
      */
     public function iterate($string, $sequenceLength, $expectedArray)
     {
-        $iterator = new BitReaderIterator($this->createResourceFromString($string));
+        $iterator = new BitReaderIterator($this->createResourceFromString($string), $sequenceLength);
         
         $resultArray = $this->getBitSequencesAsArray($iterator);
         
