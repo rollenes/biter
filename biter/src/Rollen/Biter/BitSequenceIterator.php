@@ -6,9 +6,18 @@ class BitSequenceIterator implements \Iterator {
 
     private $sequenceLength;
 
+    private $resource;
+    
+    private $current = 0;
+    
+    private $buffer = '';
+    
+    private $currentCharacter;
+
     public function __construct($resource, $sequenceLength) 
     {
         $this->checkResource($resource);
+        $this->resource = $resource;
         
         $this->checkSequenceLength($sequenceLength);
         $this->sequenceLength = $sequenceLength;
@@ -49,29 +58,55 @@ class BitSequenceIterator implements \Iterator {
         return is_int($sequenceLength) and $sequenceLength > 0;
     }
 
-        public function current() {
-        
+    public function current() 
+    {
+        return $this->pop();
     }
 
-    public function key() {
-        
+    public function key() 
+    {
+        return $this->current;
     }
 
-    public function next() {
-        
+    public function next() 
+    {
+        $this->current++;
     }
 
-    public function rewind() {
-        
+    public function rewind() 
+    {
+        rewind($this->resource);
+        $this->current = 0;
     }
 
-    public function valid() {
+    public function valid() 
+    {
+        $this->push();
         
+        return (bool)$this->buffer;
     }
 
+    private function push()
+    {
+        $c = fgetc($this->resource);
+        
+        if ($c !== false) {
+            $this->buffer .= sprintf('%08b', ord($c));
+        }
+    }
+    
+    private function pop()
+    {
+        $sequence = substr($this->buffer, 0, $this->sequenceLength);
+        
+        $this->buffer = substr($this->buffer, $this->sequenceLength);
+        
+        return $sequence;
+    }
+    
+    
     public function getSequenceLength() 
     {
         return $this->sequenceLength;
     }
-
 }

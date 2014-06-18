@@ -10,9 +10,9 @@ class ItarateTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider iterateDataProvider
      */
-    public function iterate($string, $sequenceLength, $expectedArray)
+    public function iterate($resource, $sequenceLength, $expectedArray)
     {
-        $iterator = new BitSequenceIterator($this->createResourceFromString($string), $sequenceLength);
+        $iterator = new BitSequenceIterator($resource, $sequenceLength);
         
         $resultArray = $this->getBitSequencesAsArray($iterator);
         
@@ -22,8 +22,20 @@ class ItarateTest extends \PHPUnit_Framework_TestCase
     public function iterateDataProvider() 
     {
         return[
-            ['', 1, []],
-            ['', 3, []],
+            [$this->createResourceFromString(''), 4, []],
+            [$this->createResourceFromString(''), 8, []],
+            
+            [$this->createResourceFromString("\x0"), 4, ['0000', '0000']],
+            [$this->createResourceFromString("\x0"), 8, ['00000000']],
+
+            [$this->createResourceFromString("\x1"), 4, ['0000', '0001']],
+            [$this->createResourceFromString("\x1"), 8, ['00000001']],
+            
+            [$this->createResourceFromString("\x0\x0"), 4, ['0000', '0000', '0000', '0000']],
+            [$this->createResourceFromString("\x0\x0"), 8, ['00000000', '00000000']],
+            
+            [$this->createResourceFromString("\x1\x0"), 4, ['0000', '0001', '0000', '0000']],
+            [$this->createResourceFromString("\x1\x0"), 8, ['00000001', '00000000']]
         ];
     }
     
