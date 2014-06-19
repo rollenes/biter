@@ -12,8 +12,6 @@ class BitSequenceIterator implements \Iterator {
     
     private $buffer = '';
     
-    private $currentCharacter;
-
     public function __construct($resource, $sequenceLength) 
     {
         $this->checkResource($resource);
@@ -83,14 +81,12 @@ class BitSequenceIterator implements \Iterator {
     {
         $this->push();
         
-        return (bool)$this->buffer;
+        return (bool)strlen($this->buffer);
     }
 
     private function push()
     {
-        $c = fgetc($this->resource);
-        
-        if ($c !== false) {
+        while (strlen($this->buffer) <= $this->sequenceLength and ($c = fgetc($this->resource)) !== false) {
             $this->buffer .= sprintf('%08b', ord($c));
         }
     }
