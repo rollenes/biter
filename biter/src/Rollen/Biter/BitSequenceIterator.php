@@ -2,7 +2,8 @@
 
 namespace Rollen\Biter;
 
-class BitSequenceIterator implements \Iterator {
+class BitSequenceIterator implements \Iterator 
+{
 
     private $sequenceLength;
 
@@ -99,7 +100,6 @@ class BitSequenceIterator implements \Iterator {
         
         return $sequence;
     }
-    
     
     public function getSequenceLength() 
     {
