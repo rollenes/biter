@@ -7,6 +7,7 @@ class BitSequenceStatisticsGenerator
 
     public function generate(BitSequenceIterator $iterator) 
     {
+<<<<<<< HEAD
         $sequenceStatistics = new BitSequenceStatistics();
         
         foreach ($iterator as $sequence) {
@@ -14,6 +15,9 @@ class BitSequenceStatisticsGenerator
         }
         
         return $sequenceStatistics;
+=======
+        return new BitSequenceStatistics();
+>>>>>>> f900a7d16427a921e543fa909bd9a2a825012ad4
     }
 
 }
